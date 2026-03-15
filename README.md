@@ -3,7 +3,7 @@
     width="412"
     height="273"
     alt="logo"
-    src=""
+    src="https://github.com/user-attachments/assets/0197ce2e-e378-4201-9842-ba260d6db122"
   />
 </p>
 
@@ -239,17 +239,12 @@ Anvil uses three Sysinternals binaries. All are automatically downloaded if not 
 | `handle.exe` | Named Pipe ACL module | [Handle.zip](https://download.sysinternals.com/files/Handle.zip) |
 | `accesschk.exe` | Named Pipe ACL module — pipe DACL enumeration | [AccessChk.zip](https://download.sysinternals.com/files/AccessChk.zip) |
 
-> **Note:** Directory and file writability checks across all other modules use the Windows `AccessCheck` API directly via `ctypes` — no binary required. `accesschk.exe` is only needed for named pipe DACL enumeration in the `pipes` module, where reading pipe security descriptors via the raw API would require reconstructing ACE structures that `accesschk` already surfaces cleanly.
-
 ### Providing Your Own Binaries
 
 If the machine has no internet access or you already have the Sysinternals Suite downloaded, point Anvil at your copies — they will be **copied into `sysinternals/`** automatically for all future runs:
 
 ```
-python anvil.py --exe target.exe \
-    --procmon  "D:\Tools\SysinternalsSuite\Procmon64.exe" \
-    --handle   "D:\Tools\SysinternalsSuite\handle.exe" \
-    --accesschk "D:\Tools\SysinternalsSuite\accesschk64.exe"
+python anvil.py --exe target.exe --procmon  "D:\Tools\SysinternalsSuite\Procmon64.exe" --handle   "D:\Tools\SysinternalsSuite\handle.exe" --accesschk "D:\Tools\SysinternalsSuite\accesschk64.exe"
 ```
 
 After the first run with these flags the binaries are cached in `sysinternals/` and the flags are no longer needed.
@@ -266,12 +261,8 @@ After the first run with these flags the binaries are cached in `sysinternals/` 
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourorg/anvil.git
+git clone https://github.com/shellkraft/anvil.git
 cd anvil
-
-# (Optional) Create a virtual environment
-python -m venv .venv
-.venv\Scripts\activate
 
 # Run — dependencies auto-install on first launch
 python anvil.py --help
@@ -301,7 +292,7 @@ A pre-built `Anvil.exe` is available on the [Releases](../../releases) page — 
 
 | Version | SHA-256 | VirusTotal |
 |---------|---------|------------|
-| V1.0.0 | — | — |
+| V1.0.0 | [`f2c61f7b...`](https://www.virustotal.com/gui/file/f2c61f7b6bfad491f692b727ccbc10a6e2345fe1e629bc0c2125b7fd9b42305c/detection) | [4/72](https://www.virustotal.com/gui/file/f2c61f7b6bfad491f692b727ccbc10a6e2125b7fd9b42305c/detection) |
  
 > SHA-256 can be verified with `certutil -hashfile Anvil.exe SHA256` (Windows) or `sha256sum Anvil.exe` (Linux).
 
@@ -401,6 +392,8 @@ python anvil.py --exe "C:\App\app.exe" --procmon "E:\Sysint\Procmon64.exe" --han
 
 Colour-coded per severity with optional `--verbose` detail blocks. Requires the `rich` package (auto-installed).
 
+<img width="1161" height="772" alt="Image" src="https://github.com/user-attachments/assets/93b1a1b2-6995-4ab7-ba2f-bab389d37106" />
+
 ### JSON (`--report findings.json`)
 
 Machine-readable array of finding objects:
@@ -424,7 +417,7 @@ Self-contained single-file report with:
 - Full detail on expand
 - Scan metadata (target, timestamps, integrity level)
 
-<img width="1866" height="907" alt="image" src="https://github.com/user-attachments/assets/f649958d-3e0f-4267-a49f-0f7f3181bdf0" />
+<img width="1866" height="908" alt="Image" src="https://github.com/user-attachments/assets/715ee930-eab5-43b1-b577-e0ad6cc50ac6" />
 
 ---
 
