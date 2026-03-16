@@ -223,37 +223,38 @@ pip install rich pefile
 pip install rich>=13.0 pefile>=2023.2.7
 ```
 
-### Sysinternals Tools
-
-See the [Sysinternals Tools](#sysinternals-tools) section below.
-
----
-
 ## Sysinternals Tools
-
-Anvil uses three Sysinternals binaries. All are automatically downloaded if not found, and stored in `sysinternals/` inside the tool directory.
-
+ 
+Anvil uses three Sysinternals binaries.
+ 
 | Binary | Used By | Download |
 |--------|---------|----------|
 | `Procmon64.exe` | All Procmon-based modules | [ProcessMonitor.zip](https://download.sysinternals.com/files/ProcessMonitor.zip) |
 | `handle.exe` | Named Pipe ACL module | [Handle.zip](https://download.sysinternals.com/files/Handle.zip) |
 | `accesschk.exe` | Named Pipe ACL module — pipe DACL enumeration | [AccessChk.zip](https://download.sysinternals.com/files/AccessChk.zip) |
-
-### Providing Your Own Binaries
-
-If the machine has no internet access or you already have the Sysinternals Suite downloaded, point Anvil at your copies — they will be **copied into `sysinternals/`** automatically for all future runs:
-
+ 
+### Resolution Order
+ 
+On every run, Anvil resolves each tool using the following priority:
+ 
+1. **Explicit flag** — `--procmon`, `--handle`, or `--accesschk` (see below)
+2. **Registry cache** — `HKCU\Software\Anvil` (written on first successful resolution)
+3. **PATH** — standard `where`-style search
+4. **Auto-download** — fetched from `live.sysinternals.com` and stored in `%LOCALAPPDATA%\Anvil\sysinternals\`
+ 
+Once a tool is resolved via any route, its path is written to the registry cache. Subsequent runs skip steps 1–3 entirely and go straight to the cached path.
+ 
+### Download Failure
+ 
+If a tool cannot be downloaded (no internet, firewall, or proxy), Anvil prints a structured error and **exits immediately**. An error message is shown listing the missing tool(s) and the flag to use.
+ 
+### Providing Binaries Manually
+ 
+Supply the path to any binary via its flag. Anvil will **copy it into `%LOCALAPPDATA%\Anvil\sysinternals\`** and write the path to the registry cache — the flag never needs to be used again after the first run.
+ 
 ```
-python anvil.py --exe target.exe --procmon  "D:\Tools\SysinternalsSuite\Procmon64.exe" --handle   "D:\Tools\SysinternalsSuite\handle.exe" --accesschk "D:\Tools\SysinternalsSuite\accesschk64.exe"
+python anvil.py --exe "C:\App\target.exe" --procmon   "D:\Tools\Procmon64.exe" --handle    "D:\Tools\handle.exe" --accesschk "D:\Tools\accesschk.exe"
 ```
-
-After the first run with these flags the binaries are cached in `sysinternals/` and the flags are no longer needed.
-
-### Offline / Air-Gapped Environments
-
-1. Download the full [Sysinternals Suite ZIP](https://download.sysinternals.com/files/SysinternalsSuite.zip) on a connected machine.
-2. Extract and copy `Procmon64.exe`, `handle.exe`, and `accesschk.exe` into a `sysinternals/` folder at the tool root.
-3. Run Anvil normally — it will find them automatically.
 
 ---
 
@@ -321,12 +322,12 @@ python anvil.py [--exe PATH | --service NAME | --pid PID] [options]
 Module names: `dll`, `com`, `registry`, `binary`, `configs`, `installdir`, `memory`, `symlink`, `unquoted`, `pesec`, `pipes`
 
 ### Sysinternals Paths
-
+ 
 | Flag | Description |
 |------|-------------|
-| `--procmon PATH` | Path to `Procmon64.exe`. Copied to `sysinternals/` and auto-used thereafter. |
-| `--handle PATH` | Path to `handle.exe`. Copied to `sysinternals/` and auto-used thereafter. |
-| `--accesschk PATH` | Path to `accesschk.exe`. Copied to `sysinternals/` and auto-used thereafter. |
+| `--procmon PATH` | Path to `Procmon64.exe`. Copied to `%LOCALAPPDATA%\Anvil\sysinternals\` |
+| `--handle PATH` | Path to `handle.exe`. Copied to `%LOCALAPPDATA%\Anvil\sysinternals\` |
+| `--accesschk PATH` | Path to `accesschk.exe`. Copied to `%LOCALAPPDATA%\Anvil\sysinternals\` |
 
 ### Capture
 
