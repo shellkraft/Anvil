@@ -266,7 +266,7 @@ git clone https://github.com/shellkraft/Anvil.git
 cd Anvil
 
 # Run — dependencies auto-install on first scan
-python.exe Anvil.py
+python.exe anvil.py
 ```
 
 > **Tip:** Always launch your terminal with **Run as Administrator** before running Anvil.
