@@ -292,7 +292,7 @@ A pre-built `Anvil.exe` is available on the [Releases](../../releases) page — 
 
 | Version | SHA-256 | VirusTotal |
 |---------|---------|------------|
-| V1.0.0 | [`f2c61f7b...`](https://www.virustotal.com/gui/file/f2c61f7b6bfad491f692b727ccbc10a6e2345fe1e629bc0c2125b7fd9b42305c/detection) | [4/72](https://www.virustotal.com/gui/file/f2c61f7b6bfad491f692b727ccbc10a6e2125b7fd9b42305c/detection) |
+| V1.0.0 | [`0ecf5a62...`](https://www.virustotal.com/gui/file/f2c61f7b6bfad491f692b727ccbc10a6e2345fe1e629bc0c2125b7fd9b42305c/detection) | [4/72](https://www.virustotal.com/gui/file/0ecf5a6298f83b2b6066146c8a9b9435ed97642c3736cf7b1447f2efaf7d1ca2/detection) |
  
 > SHA-256 can be verified with `certutil -hashfile Anvil.exe SHA256` (Windows) or `sha256sum Anvil.exe` (Linux).
 
