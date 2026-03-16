@@ -262,11 +262,11 @@ python anvil.py --exe "C:\App\target.exe" --procmon   "D:\Tools\Procmon64.exe" -
 
 ```bash
 # Clone the repository
-git clone https://github.com/shellkraft/anvil.git
-cd anvil
+git clone https://github.com/shellkraft/Anvil.git
+cd Anvil
 
-# Run — dependencies auto-install on first launch
-python anvil.py --help
+# Run — dependencies auto-install on first scan
+python.exe Anvil.py
 ```
 
 > **Tip:** Always launch your terminal with **Run as Administrator** before running Anvil.
